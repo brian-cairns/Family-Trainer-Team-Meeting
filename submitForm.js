@@ -4,7 +4,7 @@ const formName = 'familyTrainingMeeting'
 console.log('form: ' + formName)
 let newForm = {}
 
-let clientName = document.querySelector('input#clientName')
+let clientName = document.getElementById('clientName')
 clientName.addEventListener('change', (e) => {
 	console.log('changed')
 	newForm.clientName = e.target.value;
