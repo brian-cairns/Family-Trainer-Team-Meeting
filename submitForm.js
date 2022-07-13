@@ -1,6 +1,6 @@
 let submit = document.getElementById('submit')
 console.log(submit)
-const formName = 'consultationFeeSummary'
+const formName = 'familyTrainingMeeting'
 console.log('form: ' + formName)
 let newForm = {}
 
@@ -62,10 +62,10 @@ membersPresent.addEventListener('change', (e) => {
   console.log(newForm.membersPresent);
 })
 
-let name = document.querySelector('input#name')
-name.addEventListener('change', (e) => {
+let staffName = document.querySelector('input#staffName')
+staffName.addEventListener('change', (e) => {
 	newForm.name = e.target.value;
-  console.log(newForm.name);
+  console.log(newForm.staffName);
 })
 class Goal {
     constructor(goal, strategies, nextSteps) {
@@ -93,7 +93,7 @@ async function getGoals() {
 
 document.getElementById('submit').addEventListener("click", async (event) => {
   const goals = await getGoals()
-  submitForm(newForm, 'consultationFeeSummary')
+  submitForm(newForm, formName)
 })
 
 async function submitForm(data, form) {
