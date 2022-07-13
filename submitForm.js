@@ -67,32 +67,62 @@ staffName.addEventListener('change', (e) => {
 	newForm.name = e.target.value;
   console.log(newForm.staffName);
 })
-class Goal {
-    constructor(goal, strategies, nextSteps) {
-        this.goal = goal;
-        this.strategies = strategies;
-        this.nextSteps = nextSteps
-    }
-}
 
-async function getGoals() {
-    let goals = []
-    for (i = 1; i < 4; i++) {
-        if (document.getElementById(`goal${i}`).value == "") {
-            i = 4;
-            return goals
-        } else {
-            let item = new Goal
-            item.goal = document.getElementById(`goal${i}`).value;
-            item.strategies = document.getElementById(`strategies${i}`).value;
-            item.nextSteps = document.getElementById(`nextSteps${i}`).value;
-            goals.push(item)
-        }
-    }
-}
+let goal1 = document.querySelector('input#goal1')
+goal1.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.goal1);
+})
+
+let parentalStrategies1 = document.querySelector('input#parentalStrategies1')
+parentalStrategies1.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.parentalStrategies1);
+})
+
+let nextSteps1 = document.querySelector('input#nextSteps1')
+nextSteps1.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.nextSteps1);
+})
+
+let goal2 = document.querySelector('input#goal2')
+goal2.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.goal2);
+})
+
+let parentalStrategies2 = document.querySelector('input#parentalStrategies2')
+parentalStrategies2.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.parentalStrategies2);
+})
+
+let nextSteps2 = document.querySelector('input#nextSteps2')
+nextSteps2.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.nextSteps2);
+})
+
+let goal3 = document.querySelector('input#goal3')
+goal3.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.goal3);
+})
+
+let parentalStrategies3 = document.querySelector('input#parentalStrategies3')
+parentalStrategies3.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.parentalStrategies3);
+})
+
+let nextSteps3 = document.querySelector('input#nextSteps3')
+nextSteps3.addEventListener('change', (e) => {
+	newForm.name = e.target.value;
+  console.log(newForm.nextSteps3);
+})
 
 document.getElementById('submit').addEventListener("click", async (event) => {
-  const goals = await getGoals()
   submitForm(newForm, formName)
 })
 
