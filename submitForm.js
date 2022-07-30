@@ -122,6 +122,9 @@ nextSteps3.addEventListener('change', (e) => {
   console.log(newForm.nextSteps3);
 })
 
+let printForm = document.getElementById('printToPDF')
+printForm.style.display = 'none'
+
 document.getElementById('submit').addEventListener("click", async (event) => {
   submitForm(newForm, formName)
 })
@@ -158,7 +161,12 @@ function respond(data) {
 
 function showSuccess(formId) {
   document.getElementById('returnMessage').innerHTML = 'Form has been successfully submitted'
+  printForm.style.display = 'inline';
+  printForm.addEventListener('click', (e) => {
+  location.href = `phoenix-freedom-foundation-backend.webflow.io/completed-forms/iiss-session-note?formId=${formId}`
+  })
 }
+
 
 function showError(err) {
     console.error
@@ -166,7 +174,7 @@ function showError(err) {
 }
 
 async function sendNotification(id, client) {
-  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/consultation-fee-summary?formId=${id}>Educational Consultation Summary</a>`
+  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/family-trainer-team-meeting?formId=${id}>Educational Consultation Summary</a>`
   console.log(message)
   const url = 'https://pffm.azurewebsites.net/notices'
   let notification = {
