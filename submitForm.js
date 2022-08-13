@@ -29,8 +29,11 @@ year.addEventListener('change', (e) => {
   console.log(newForm.year);
 })
 
-let todaysDate = `${month}/${day}/${year}`
-document.getElementById('todaysDate').innerHTML = todaysDate
+let todaysDate = document.querySelector('input#todaysDate')
+todaysDate.addEventListener('change', (e) => {
+	newForm.todaysDate = e.target.value;
+  console.log(newForm.todaysDate);
+})
 
 let start = document.querySelector('input#start')
 start.addEventListener('change', (e) => {
@@ -38,13 +41,13 @@ start.addEventListener('change', (e) => {
   console.log(newForm.start);
 })
 
-let AMPM = document.querySelector('input#AMPM')
+let AMPM = document.querySelector('select#AMPM')
 AMPM.addEventListener('change', (e) => {
 	newForm.AMPM = e.target.value;
   console.log(newForm.AMPM);
 })
 
-let AMPM2 = document.querySelector('input#AMPM-2')
+let AMPM2 = document.querySelector('select#AMPM-2')
 AMPM2.addEventListener('change', (e) => {
 	newForm.AMPM2 = e.target.value;
   console.log(newForm.AMPM2);
@@ -62,72 +65,72 @@ membersPresent.addEventListener('change', (e) => {
   console.log(newForm.membersPresent);
 })
 
-let staffName = document.querySelector('input#staffName')
+let staffName = document.getElementById('staffName')
 staffName.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.staffName = e.target.value;
   console.log(newForm.staffName);
 })
 
 let goal1 = document.querySelector('input#goal1')
 goal1.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.goal1 = e.target.value;
   console.log(newForm.goal1);
 })
 
-let parentalStrategies1 = document.querySelector('input#parentalStrategies1')
+let parentalStrategies1 = document.getElementById('parentalStrategies1')
 parentalStrategies1.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.parentalStrategies1 = e.target.value;
   console.log(newForm.parentalStrategies1);
 })
 
-let nextSteps1 = document.querySelector('input#nextSteps1')
+let nextSteps1 = document.getElementById('nextSteps1')
 nextSteps1.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.nextSteps1 = e.target.value;
   console.log(newForm.nextSteps1);
 })
 
 let goal2 = document.querySelector('input#goal2')
 goal2.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.goal2 = e.target.value;
   console.log(newForm.goal2);
 })
 
-let parentalStrategies2 = document.querySelector('input#parentalStrategies2')
+let parentalStrategies2 = document.getElementById('parentalStrategies2')
 parentalStrategies2.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.parentalStrategies2 = e.target.value;
   console.log(newForm.parentalStrategies2);
 })
 
-let nextSteps2 = document.querySelector('input#nextSteps2')
+let nextSteps2 = document.getElementById('nextSteps2')
 nextSteps2.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.nextStep2 = e.target.value;
   console.log(newForm.nextSteps2);
 })
 
 let goal3 = document.querySelector('input#goal3')
 goal3.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.goal3 = e.target.value;
   console.log(newForm.goal3);
 })
 
-let parentalStrategies3 = document.querySelector('input#parentalStrategies3')
+let parentalStrategies3 = document.getElementById('parentalStrategies3')
 parentalStrategies3.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.parentalStrategies3 = e.target.value;
   console.log(newForm.parentalStrategies3);
 })
 
-let nextSteps3 = document.querySelector('input#nextSteps3')
+let nextSteps3 = document.getElementById('nextSteps3')
 nextSteps3.addEventListener('change', (e) => {
-	newForm.name = e.target.value;
+	newForm.nextSteps3 = e.target.value;
   console.log(newForm.nextSteps3);
 })
-
-let printForm = document.getElementById('printToPDF')
-printForm.style.display = 'none'
 
 document.getElementById('submit').addEventListener("click", async (event) => {
   submitForm(newForm, formName)
 })
+
+let printForm = document.getElementById('printToPDF')
+printForm.style.display = 'none'
 
 async function submitForm(data, form) {
   const document = {
@@ -149,37 +152,41 @@ async function submitForm(data, form) {
 }
 
 function respond(data) {
-  let id = data.id
+  let id = data.key
+  console.log(id)
   if (id) {
     showSuccess(id)
-    let name = newForm.clientName 
-    sendNotification(formId, name)	  
+    sendNotification(id, newForm.clientName,'family', 'not urgent');
+    sendNotification(id, newForm.staffName, 'family', 'not urgent');
+    sendNotification(id, 'admin', 'family', 'not urgent')
   } else {
     showError(data.error)
   }
 }
 
-function showSuccess(formId) {
+function showSuccess(id) {
   document.getElementById('returnMessage').innerHTML = 'Form has been successfully submitted'
+  document.getElementById('returnMessage').style.display = 'block'
   printForm.style.display = 'inline';
   printForm.addEventListener('click', (e) => {
-  location.href = `phoenix-freedom-foundation-backend.webflow.io/completed-forms/iiss-session-note?id=${id}`
+  location.href = `https://phoenix-freedom-foundation-backend.webflow.io/completed-forms/family-trainer-team-meeting?id=${id}`
   })
 }
-
 
 function showError(err) {
     console.error
     document.getElementById('returnMessage').innerHTML = `An error occurred when submitting this form, which was ${err}. Please contact the administrator for help.`
 }
 
-async function sendNotification(id, client) {
-  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/family-trainer-team-meeting?id=${id}>Educational Consultation Summary</a>`
+async function sendNotification(id, recipient, type, priority) {
+  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/iiss-session-note?id=${id}>Educational Consultation Summary</a>`
   console.log(message)
   const url = 'https://pffm.azurewebsites.net/notices'
   let notification = {
-    'name': client,
-    'notice' : message 
+    'name': recipient,
+    'notice': message,
+    'type': type,
+    'priority': priority
   }
   const header = {
       'Content-Type': 'application/json',
