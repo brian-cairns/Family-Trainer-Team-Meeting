@@ -65,7 +65,7 @@ membersPresent.addEventListener('change', (e) => {
   console.log(newForm.membersPresent);
 })
 
-let staffName = document.getElementById('staffName')
+let staffName = document.querySelector('staffName')
 staffName.addEventListener('change', (e) => {
 	newForm.staffName = e.target.value;
   console.log(newForm.staffName);
