@@ -3,129 +3,28 @@ console.log(submit)
 const formName = 'familyTrainingMeeting'
 console.log('form: ' + formName)
 let newForm = {}
+let pdf = document.getElementById('printToPDF')
+newForm.goals = []
 
-let clientName = document.querySelector('input#clientName')
-clientName.addEventListener('change', (e) => {
-	console.log('changed')
-	newForm.clientName = e.target.value;
-  console.log(newForm.clientName);
-  })
-  
-let month = document.querySelector('input#month')
-month.addEventListener('change', (e) => {
-	newForm.month = e.target.value;
-  console.log(newForm.month);
-})
-
-let day = document.querySelector('input#day')
-day.addEventListener('change', (e) => {
-	newForm.day = e.target.value;
-  console.log(newForm.day);
-})
-
-let year = document.querySelector('input#year')
-year.addEventListener('change', (e) => {
-	newForm.year = e.target.value;
-  console.log(newForm.year);
-})
-
-let todaysDate = document.querySelector('input#todaysDate')
-todaysDate.addEventListener('change', (e) => {
-	newForm.todaysDate = e.target.value;
-  console.log(newForm.todaysDate);
-})
-
-let start = document.querySelector('input#start')
-start.addEventListener('change', (e) => {
-	newForm.start = e.target.value;
-  console.log(newForm.start);
-})
-
-let AMPM = document.querySelector('select#AMPM')
-AMPM.addEventListener('change', (e) => {
-	newForm.AMPM = e.target.value;
-  console.log(newForm.AMPM);
-})
-
-let AMPM2 = document.querySelector('select#AMPM-2')
-AMPM2.addEventListener('change', (e) => {
-	newForm.AMPM2 = e.target.value;
-  console.log(newForm.AMPM2);
-})
-
-let stop = document.querySelector('input#stop')
-stop.addEventListener('change', (e) => {
-	newForm.stop = e.target.value;
-  console.log(newForm.stop);
-})
-
-let membersPresent = document.querySelector('input#membersPresent')
-membersPresent.addEventListener('change', (e) => {
-	newForm.membersPresent = e.target.value;
-  console.log(newForm.membersPresent);
-})
-
-let staffName = document.querySelector('staffName')
-staffName.addEventListener('change', (e) => {
-	newForm.staffName = e.target.value;
-  console.log(newForm.staffName);
-})
-
-let goal1 = document.querySelector('input#goal1')
-goal1.addEventListener('change', (e) => {
-	newForm.goal1 = e.target.value;
-  console.log(newForm.goal1);
-})
-
-let parentalStrategies1 = document.getElementById('parentalStrategies1')
-parentalStrategies1.addEventListener('change', (e) => {
-	newForm.parentalStrategies1 = e.target.value;
-  console.log(newForm.parentalStrategies1);
-})
-
-let nextSteps1 = document.getElementById('nextSteps1')
-nextSteps1.addEventListener('change', (e) => {
-	newForm.nextSteps1 = e.target.value;
-  console.log(newForm.nextSteps1);
-})
-
-let goal2 = document.querySelector('input#goal2')
-goal2.addEventListener('change', (e) => {
-	newForm.goal2 = e.target.value;
-  console.log(newForm.goal2);
-})
-
-let parentalStrategies2 = document.getElementById('parentalStrategies2')
-parentalStrategies2.addEventListener('change', (e) => {
-	newForm.parentalStrategies2 = e.target.value;
-  console.log(newForm.parentalStrategies2);
-})
-
-let nextSteps2 = document.getElementById('nextSteps2')
-nextSteps2.addEventListener('change', (e) => {
-	newForm.nextStep2 = e.target.value;
-  console.log(newForm.nextSteps2);
-})
-
-let goal3 = document.querySelector('input#goal3')
-goal3.addEventListener('change', (e) => {
-	newForm.goal3 = e.target.value;
-  console.log(newForm.goal3);
-})
-
-let parentalStrategies3 = document.getElementById('parentalStrategies3')
-parentalStrategies3.addEventListener('change', (e) => {
-	newForm.parentalStrategies3 = e.target.value;
-  console.log(newForm.parentalStrategies3);
-})
-
-let nextSteps3 = document.getElementById('nextSteps3')
-nextSteps3.addEventListener('change', (e) => {
-	newForm.nextSteps3 = e.target.value;
-  console.log(newForm.nextSteps3);
-})
-
-document.getElementById('submit').addEventListener("click", async (event) => {
+document.getElementById('submit').addEventListener("click", (event) => {
+  newForm.date = document.querySelector('input#date').value
+  newForm.staffEmail = document.querySelector('input#staffEmail').value
+  newForm.start = document.querySelector('input#start').value
+  newForm.stop = document.querySelector('input#stop').value
+  newForm.membersPresent = document.querySelector('input#membersPresent').value
+  newForm.location = document.querySelector('input#location').value
+  for (let i = 1; i < 4; i++) {
+    console.log(i)
+    if (document.querySelector(`input#goal${i}`).value != null) {
+      newForm.goal[i] = {
+        'goalName': document.querySelector(`input#goal${i}`).value,
+        'strategies': document.getElementById(`strategies${i}`).innerHTML,
+        'nextSteps': document.getElementById(`nextSteps${i}`).innerHTML
+      }
+    } else { i = 4 }
+  }
+  newForm.staffName = document.querySelector('input#staffName').value 
+  newForm.recordDate = document.querySelector('input#finalDate').value
   submitForm(newForm, formName)
 })
 
