@@ -179,7 +179,7 @@ function showError(err) {
 }
 
 async function sendNotification(id, recipient, type, priority) {
-  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/iiss-session-note?id=${id}>Educational Consultation Summary</a>`
+  let message = `You have a new <br/><a href=phoenix-freedom-foundation-backend.webflow.io/completed-forms/iiss-session-note?id=${id}>Family Training Team Meeting</a>`
   console.log(message)
   const url = 'https://pffm.azurewebsites.net/notices'
   let notification = {
